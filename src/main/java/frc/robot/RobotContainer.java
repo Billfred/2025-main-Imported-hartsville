@@ -70,10 +70,14 @@ public class RobotContainer {
         
         // Rollers
         operatorController.leftTrigger()
-        .whileTrue(rollers.setVoltsCommand(-RollerConstants.kIntakeVoltage))
-        .onFalse(rollers.setVoltsCommand(0));
+            .whileTrue(rollers.setVoltsCommand(-RollerConstants.kIntakeVoltage))
+            .onFalse(rollers.setVoltsCommand(0));
 
         operatorController.rightTrigger()
+            .whileTrue(rollers.setVoltsCommand(RollerConstants.kShootVoltage))
+            .onFalse(rollers.setVoltsCommand(0));
+
+        operatorController.a()
             .whileTrue(rollers.setVoltsCommand(RollerConstants.kShootVoltage))
             .onFalse(rollers.setVoltsCommand(0));
     }
