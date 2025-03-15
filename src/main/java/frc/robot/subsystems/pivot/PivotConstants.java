@@ -16,4 +16,5 @@ public class PivotConstants {
     public static final int kCurrentLimit = 60;
 
     public static final double kMoveVoltage = 2;
+    public static final double kTurboVoltage = 4;
 }

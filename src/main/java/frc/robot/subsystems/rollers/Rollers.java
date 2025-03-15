@@ -7,29 +7,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Rollers extends SubsystemBase {
-    private final PWMMotorController leader = new PWMSparkMax(RollerConstants.kLeaderId);
-    private final PWMMotorController follower = new PWMSparkMax(RollerConstants.kFollowerId);
+    private final PWMMotorController upperRoller = new PWMSparkMax(RollerConstants.kUpperId);
+    private final PWMMotorController lowerRoller = new PWMSparkMax(RollerConstants.kLowerId);
 
     public Rollers() {
         configureMotors();
     }
 
     private void configureMotors() {
-        leader.addFollower(follower);
-        leader.setInverted(RollerConstants.invert);
-        follower.setInverted(RollerConstants.invertFollower);
+        upperRoller.addFollower(follower); // Breaking the correlation would let us do algae removal
+        upperRoller.setInverted(RollerConstants.invert);
+        lowerRoller.setInverted(RollerConstants.invertFollower);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(getName() + "/Leader/Output", leader.get());
-        SmartDashboard.putNumber(getName() + "/Leader/AppliedVoltage", leader.getVoltage());
-        SmartDashboard.putNumber(getName() + "/Follower/Output", follower.get());
-        SmartDashboard.putNumber(getName() + "/Follower/AppliedVoltage", follower.getVoltage());
+        SmartDashboard.putNumber(getName() + "/Upper/Output", upperRoller.get());
+        SmartDashboard.putNumber(getName() + "/Upper/AppliedVoltage", upperRoller.getVoltage());
+        SmartDashboard.putNumber(getName() + "/Lower/Output", lowerRoller.get());
+        SmartDashboard.putNumber(getName() + "/Lower/AppliedVoltage", lowerRoller.getVoltage());
     }    
 
     private void setVolts(double volts) {
-        leader.setVoltage(volts);
+        upperRoller.setVoltage(volts);
     }
 
     public Command setVoltsCommand(double volts) {
