@@ -47,17 +47,30 @@ public class RobotContainer {
                         () -> -driverController.getRightX()));
         
         // Pivot
-        operatorController.povUp()
+        
+        operatorController.povUp() //Turbo arm up
+            .and(operatorController.leftBumper())
+            .onTrue(pivot.setVoltsCommand(PivotConstants.kTurboVoltage))
+            .onFalse(pivot.setVoltsCommand(0));
+
+        operatorController.povUp() //Standard arm up
+            .and(operatorController.leftBumper().negate()) //The negate flips what it's looking for. Thanks for the protip, Allen!
             .onTrue(pivot.setVoltsCommand(PivotConstants.kMoveVoltage))
             .onFalse(pivot.setVoltsCommand(0));
 
-        operatorController.povDown()
+        operatorController.povDown() //Turbo arm down
+            .and(operatorController.leftBumper())
+            .onTrue(pivot.setVoltsCommand(-PivotConstants.kTurboVoltage))
+            .onFalse(pivot.setVoltsCommand(0));
+
+        operatorController.povDown() //Standard arm down
+            .and(operatorController.leftBumper().negate())
             .onTrue(pivot.setVoltsCommand(-PivotConstants.kMoveVoltage))
             .onFalse(pivot.setVoltsCommand(0));
         
         // Rollers
         operatorController.leftTrigger()
-        .whileTrue(rollers.setVoltsCommand(-RollerConstants.kShootVoltage))
+        .whileTrue(rollers.setVoltsCommand(-RollerConstants.kIntakeVoltage))
         .onFalse(rollers.setVoltsCommand(0));
 
         operatorController.rightTrigger()

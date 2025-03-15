@@ -67,7 +67,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        //Billfred is YOLOing this. It is probably terrible.
 
     }
 
